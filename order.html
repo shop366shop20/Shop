@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অর্ডার করুন</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="left-section">
+            <div class="menu-icon" onclick="toggleSideMenu()">☰</div>
+        </div>
+        <h1 class="website-title">ওয়েবসাইট নাম</h1>
+        <div class="right-icons">
+            <div class="search-icon" onclick="searchProducts()">🔍</div>
+            <div class="cart-icon" onclick="goToCart()">🛒</div>
+        </div>
+    </header>
+
+    <!-- সাইড মেনু -->
+    <div id="side-menu" class="side-menu">
+        <div class="menu-header">
+            <h3>মেনু</h3>
+            <span class="close-btn" onclick="toggleSideMenu()">×</span>
+        </div>
+        <button onclick="goToAdmin()">অ্যাডমিন প্যানেলে যান</button>
+    </div>
+
+    <section id="order-container">
+        <!-- প্রোডাক্ট কার্ড + প্লাস/মাইনাস -->
+        <div class="order-product-card">
+            <div id="product-preview" class="product-preview">
+                <!-- ছবি এখানে লোড হবে -->
+            </div>
+
+            <div class="product-info-area">
+                <h2 id="product-name-display">প্রোডাক্টের নাম</h2>
+                
+                <div class="price-and-qty">
+                    <p class="single-price">
+                        দাম: <span id="product-price-display">0</span> টাকা
+                    </p>
+
+                    <div class="quantity-box">
+                        <button type="button" class="qty-btn minus" onclick="changeQuantity(-1)">−</button>
+                        <span id="quantity-display">1</span>
+                        <button type="button" class="qty-btn plus" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <p class="total-price">
+                    মোট: <strong id="total-price-display">0 টাকা</strong>
+                </p>
+            </div>
+        </div>
+
+        <!-- অর্ডার ফর্ম -->
+        <form id="order-details" class="order-form">
+            <input type="text" id="user-name" placeholder="আপনার নাম" required>
+            <input type="tel" id="mobile" placeholder="মোবাইল নাম্বার" required>
+            <input type="email" id="email" placeholder="ইমেইল (ঐচ্ছিক)">
+
+            <select id="country" required onchange="updateDivision()">
+                <option value="">দেশ সিলেক্ট করুন</option>
+                <option value="BD" selected>Bangladesh</option>
+            </select>
+
+            <select id="division" required onchange="updateDistrict()">
+                <option value="">বিভাগ সিলেক্ট করুন</option>
+            </select>
+
+            <select id="district" required onchange="updateUpazila()">
+                <option value="">জেলা সিলেক্ট করুন</option>
+            </select>
+
+            <select id="upazila" required>
+                <option value="">উপজেলা সিলেক্ট করুন</option>
+            </select>
+
+            <textarea id="address" placeholder="বিস্তারিত ঠিকানা" required rows="3"></textarea>
+
+            <select id="payment-method" required onchange="toggleTransactionField()">
+                <option value="">পেমেন্ট মেথড সিলেক্ট করুন</option>
+                <option value="bKash">bKash</option>
+                <option value="Nagad">Nagad</option>
+                <option value="Rocket">Rocket</option>
+                <option value="Upay">Upay</option>
+                <option value="COD">Cash on Delivery</option>
+            </select>
+
+            <div id="transaction-field" style="display:none; margin:15px 0;">
+                <label for="transaction-id">ট্রানজেকশন আইডি / নম্বর</label>
+                <input type="text" id="transaction-id" placeholder="ট্রানজেকশন আইডি দিন">
+            </div>
+
+            <div id="cod-note" style="display:none; margin:15px 0; padding:12px; background:#e8f5e9; border-radius:8px; color:#2e7d32;">
+                <strong>Cash on Delivery</strong><br>
+                পণ্য হাতে পেয়ে ক্যাশে পেমেন্ট করবেন।
+            </div>
+
+            <button type="submit">অর্ডার কনফার্ম করুন</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>ডেভেলপার: BAD | ইমেইল: bad@example.com | নাম্বার: 0123456789 | অ্যাড্রেস: Dhaka, BD</p>
+    </footer>
+
+    <script src="script.js"></script>
+	
+</body>
+</html>

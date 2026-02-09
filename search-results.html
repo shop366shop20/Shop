@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সার্চ রেজাল্ট | ওয়েবসাইট নাম</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="menu-icon" onclick="toggleSideMenu()">☰</div>
+        <h1>সার্চ রেজাল্ট</h1>
+        <div class="right-icons">
+            <div class="search-icon" onclick="openSearchModal()">🔍</div>
+            <div class="cart-icon" onclick="goToCart()">🛒</div>
+        </div>
+    </header>
+
+    <section id="search-results">
+        <div class="container">
+            <h2>সার্চ করা হয়েছে: "<span id="search-query"></span>"</h2>
+            
+            <div id="results-list" class="products-grid"></div>
+            
+            <p id="no-results" style="text-align:center; color:#777; padding:40px; display:none;">
+                কোনো প্রোডাক্ট পাওয়া যায়নি। অন্য কিছু সার্চ করুন।
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>ডেভেলপার: BAD | ইমেইল: bad@example.com | নাম্বার: 0123456789 | অ্যাড্রেস: Dhaka, BD</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const query = localStorage.getItem('searchQuery') || '';
+            document.getElementById('search-query').textContent = query;
+
+            if (!query) {
+                document.getElementById('no-results').style.display = 'block';
+                return;
+            }
+
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(query.toLowerCase()) ||
+                (p.description && p.description.toLowerCase().includes(query.toLowerCase()))
+            );
+
+            const list = document.getElementById('results-list');
+            list.innerHTML = '';
+
+            if (filtered.length === 0) {
+                document.getElementById('no-results').style.display = 'block';
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.onclick = () => goToProductDetail(p.id); // পুরো কার্ডে চাপ দিলে ডিটেইল পেজে
+
+                const mainImage = p.images?.[0] || '';
+
+                card.innerHTML = `
+                    ${mainImage ? `<img src="${mainImage}" alt="${p.name}">` : '<div class="no-image">ছবি নেই</div>'}
+                    <div class="product-info">
+                        <div class="product-name">${p.name}</div>
+                        <div>
+                            <span class="product-price">${p.price} টাকা</span>
+                            ${Number(p.oldPrice) > 0 ? `<span class="product-old-price">${p.oldPrice} টাকা</span>` : ''}
+                        </div>
+                        <div class="product-stock">স্টক: ${p.stock}</div>
+                        
+                        <!-- নতুন: অর্ডার বাটন যোগ করা হয়েছে -->
+                        <button class="order-btn" onclick="event.stopPropagation(); goToOrder(${p.id})">
+                            অর্ডার করুন
+                        </button>
+                    </div>
+                `;
+
+                list.appendChild(card);
+            });
+        });
+    </script>
+</body>
+</html>

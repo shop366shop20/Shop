@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অ্যাডমিন প্যানেল</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- লগইন সেকশন -->
+    <div id="login-section" class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h2>অ্যাডমিন লগইন</h2>
+                <p>আপনার স্টোর ম্যানেজ করতে লগইন করুন</p>
+            </div>
+            <form id="login-form" class="login-form">
+                <div class="input-group">
+                    <label for="admin-password">পাসওয়ার্ড</label>
+                    <div class="password-wrapper">
+                        <input
+                            type="password"
+                            id="admin-password"
+                            placeholder="আপনার পাসওয়ার্ড দিন"
+                            required
+                            autocomplete="current-password"
+                        >
+                        <span class="toggle-password" onclick="togglePassword()">👁️</span>
+                    </div>
+                </div>
+                <button type="button" onclick="loginAdmin()" class="login-btn">
+                    লগইন করুন
+                </button>
+                <div class="forgot-password">
+                    <a href="#" onclick="alert('পাসওয়ার্ড রিসেটের জন্য যোগাযোগ করুন')">পাসওয়ার্ড ভুলে গেছেন?</a>
+                </div>
+            </form>
+            <div class="login-footer">
+                <small>সুরক্ষিত এবং এনক্রিপ্টেড</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- অ্যাডমিন প্যানেল -->
+    <div id="admin-panel" style="display: none;">
+        <header>
+            <h1>অ্যাডমিন প্যানেল</h1>
+            <button onclick="goToUserPage()">ইউজার পেজে যান</button>
+        </header>
+
+        <nav>
+            <ul>
+                <li onclick="showSection('add-product')" class="active">প্রোডাক্ট যোগ করুন</li>
+                <li onclick="showSection('products-list')">সকল প্রোডাক্ট</li>
+                <li onclick="showSection('add-slider')">স্লাইডশো ছবি যোগ করুন</li>
+                <li onclick="showSection('sliders-list')">সকল স্লাইড ছবি</li>
+                <li onclick="showSection('orders')">অর্ডারকারির তথ্য</li>
+            </ul>
+        </nav>
+
+        <!-- প্রোডাক্ট যোগ করুন -->
+        <section id="add-product" class="admin-section">
+            <h2>প্রোডাক্ট যোগ করুন</h2>
+            <form id="product-form">
+                <input type="text" id="product-name" placeholder="প্রোডাক্টের নাম" required>
+                <input type="number" id="product-price" placeholder="দাম" required min="1">
+                <input type="number" id="product-old-price" placeholder="আগের দাম" required min="0">
+                <input type="number" id="product-stock" placeholder="স্টক" required min="0">
+                <textarea id="product-description" placeholder="প্রোডাক্টের বিবরণ" required rows="4"></textarea>
+                
+                <label>ছবি আপলোড করুন (৩টা পর্যন্ত):</label>
+                <input type="file" id="product-images" accept="image/*" multiple>
+                <div id="product-preview" class="preview-container"></div>
+                
+                <button type="submit">প্রোডাক্ট যোগ করুন</button>
+            </form>
+        </section>
+
+        <!-- সকল প্রোডাক্ট (ক্রস আইকন দিয়ে ডিলিট) -->
+        <section id="products-list" class="admin-section" style="display:none;">
+            <h2>সকল প্রোডাক্ট (<span id="product-count">0</span>)</h2>
+            <div id="all-products-list" class="admin-products-grid"></div>
+        </section>
+
+        <!-- স্লাইডশো যোগ করুন -->
+        <section id="add-slider" class="admin-section" style="display: none;">
+            <h2>স্লাইডশো ছবি যোগ করুন</h2>
+            <form id="slider-form">
+                <label>ছবি আপলোড করুন (একাধিক):</label>
+                <input type="file" id="slider-images" accept="image/*" multiple>
+                <div id="slider-preview" class="preview-container"></div>
+                
+                <button type="submit">ছবি যোগ করুন</button>
+            </form>
+        </section>
+
+        <!-- সকল স্লাইড ছবি (ক্রস আইকন দিয়ে ডিলিট) -->
+        <section id="sliders-list" class="admin-section" style="display:none;">
+            <h2>সকল স্লাইড ছবি (<span id="slider-count">0</span>)</h2>
+            <div id="all-sliders-list" class="admin-sliders-grid"></div>
+        </section>
+
+        <!-- অর্ডার লিস্ট -->
+        <section id="orders" class="admin-section" style="display: none;">
+            <h2>অর্ডারকারির তথ্য</h2>
+            <div id="orders-list"></div>
+			<!-- প্রত্যেক অর্ডারের অংশে এই বাটন যোগ করুন -->
+<button class="download-pdf-btn" onclick="downloadOrderPDF(${index})" style="margin-left: 10px; padding: 8px 16px; background: #4caf50; color: white; border: none; border-radius: 6px; cursor: pointer;">
+    PDF ডাউনলোড
+</button> 
+			
+        </section>
+    </div>
+
+    <footer>
+        <p>ডেভেলপার: BAD | ইমেইল: bad@example.com | নাম্বার: 0123456789 | অ্যাড্রেস: Dhaka, BD</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</html>

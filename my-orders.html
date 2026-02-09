@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমার অর্ডার</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .order-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            margin: 16px;
+            padding: 16px;
+            display: flex;
+            gap: 16px;
+        }
+        .order-img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f8f9fa;
+        }
+        .order-info {
+            flex: 1;
+        }
+        .order-status-pending { color: #f39c12; font-weight: bold; }
+        .order-status-success { color: #27ae60; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="menu-icon" onclick="toggleSideMenu()">☰</div>
+        <h1>আমার অর্ডার</h1>
+        <div class="right-icons">
+            <div class="search-icon" onclick="searchProducts()">🔍</div>
+            <div class="cart-icon" onclick="goToCart()">🛒</div>
+        </div>
+    </header>
+
+    <section id="my-orders-section">
+        <h2 style="text-align:center; margin:20px;">আমার অর্ডারসমূহ</h2>
+        <div id="my-orders-list"></div>
+    </section>
+
+    <footer>
+        <p>ডেভেলপার: BAD | ইমেইল: bad@example.com | নাম্বার: 0123456789 | অ্যাড্রেস: Dhaka, BD</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        function renderMyOrders() {
+            const container = document.getElementById('my-orders-list');
+            container.innerHTML = '';
+
+            if (orders.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#777; padding:40px;">আপনার কোনো অর্ডার এখনো নেই</p>';
+                return;
+            }
+
+            orders.forEach(order => {
+                const card = document.createElement('div');
+                card.className = 'order-card';
+
+                const imgSrc = products.find(p => p.id === order.productId)?.images?.[0] || '';
+
+                card.innerHTML = `
+                    ${imgSrc ? `<img src="${imgSrc}" class="order-img" alt="${order.productName}">` : '<div class="order-img" style="display:flex;align-items:center;justify-content:center;background:#eee;">ছবি নেই</div>'}
+                    <div class="order-info">
+                        <h3>${order.productName}</h3>
+                        <p>কোয়ান্টিটি: ${order.quantity}</p>
+                        <p>মোট দাম: ${order.totalAmount || (order.price * order.quantity)} টাকা</p>
+                        <p>তারিখ: ${order.orderDate || 'N/A'}</p>
+                        <p>স্ট্যাটাস: 
+                            <span class="${order.status === 'successful' ? 'order-status-success' : 'order-status-pending'}">
+                                ${order.status === 'successful' ? 'সাকসেসফুল' : 'পেন্ডিং'}
+                            </span>
+                        </p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // পেজ লোড হলে অর্ডার দেখানো
+        window.addEventListener('load', renderMyOrders);
+    </script>
+</body>
+</html>

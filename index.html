@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ওয়েবসাইট</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <header>
+    <div class="left-section">
+        <div class="menu-icon" onclick="toggleSideMenu()">☰</div>
+    </div>
+
+    <h1 class="website-title">ওয়েবসাইট নাম</h1>
+
+   <div class="right-icons">
+    <div class="search-icon" onclick="openSearchModal()">🔍</div>
+    <div class="cart-icon" onclick="goToCart()">🛒</div>
+</div>
+</header>
+
+
+   <!-- সাইড মেনু -->
+<div id="side-menu" class="side-menu">
+    <div class="menu-header">
+        <h3>মেনু</h3>
+        <span class="close-btn" onclick="toggleSideMenu()">×</span>
+    </div>
+    
+    <button onclick="goToAdmin()">অ্যাডমিন প্যানেলে যান</button>
+	<button onclick="window.location.href='about.html'">আমাদের সম্পর্কে</button>
+    <button onclick="window.location.href='contact.html'">যোগাযোগ করুন</button>
+    
+    <!-- নতুন বাটন যোগ করা হলো -->
+    <button onclick="showMyOrders()">মাই অর্ডার</button>
+</div>
+
+    <!-- স্লাইডশো -->
+    <div id="slideshow"></div>
+
+    <!-- প্রোডাক্ট সেকশন -->
+    <section id="products-section">
+        <h2>আমাদের প্রোডাক্টস</h2>
+        <div id="products-list" class="products-grid"></div>
+    </section>
+<!-- হোয়াটসঅ্যাপ ফ্লোটিং আইকন (নিচে বাম কোণায়) -->
+<a href="https://wa.me/8801735251867?text=আসসালামু আলাইকুম, আমি ওয়েবসাইট থেকে যোগাযোগ করছি।" 
+   target="_blank" 
+   class="whatsapp-float" 
+   title="হোয়াটসঅ্যাপে যোগাযোগ করুন">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+<!-- ফেসবুক মেসেঞ্জার ফ্লোটিং আইকন – নিচে ডান কোণায় -->
+<a href="https://m.me/j/AbYWwdnqV5-40Aqk/" 
+   target="_blank" 
+   class="messenger-float" 
+   title="ফেসবুক মেসেঞ্জারে যোগাযোগ করুন">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Facebook_Messenger_logo_2020.svg" alt="Messenger">
+</a>
+    <footer>
+        <p>ডেভেলপার: BAD | ইমেইল: bad@example.com | নাম্বার: 0123456789 | অ্যাড্রেস: Dhaka, BD</p>
+		<footer style="background:#1b5e20; color:white; padding:40px 16px; text-align:center;">
+    <p>© 2026 ওয়েবসাইট নাম | সকল অধিকার সংরক্ষিত</p>
+    <div style="margin:20px 0;">
+        <a href="#" style="color:white; margin:0 12px;">ফেসবুক</a>
+        <a href="#" style="color:white; margin:0 12px;">ইনস্টাগ্রাম</a>
+        <a href="#" style="color:white; margin:0 12px;">হোয়াটসঅ্যাপ</a>
+    </div>
+</footer>
+    </footer>
+<!-- সার্চ মডাল (আইকনে চাপ দিলে দেখাবে) -->
+<div id="search-modal" class="search-modal">
+    <div class="search-modal-content">
+        <span class="search-modal-close" onclick="closeSearchModal()">×</span>
+        <input 
+            type="text" 
+            id="modal-search-input" 
+            placeholder="প্রোডাক্টের নাম লিখুন..." 
+            autocomplete="off"
+            onkeydown="if(event.key === 'Enter') { goToSearchResults(); closeSearchModal(); }"
+        >
+        <button onclick="goToSearchResults(); closeSearchModal();">সার্চ করুন</button>
+    </div>
+</div>
+    <script src="script.js"></script>
+	
+</body>
+</html>
